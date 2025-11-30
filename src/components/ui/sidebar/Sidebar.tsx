@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import CompanyLogo from '@/assets/images/gs_logo.jpeg'
 
 export const Sidebar = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -17,7 +18,7 @@ export const Sidebar = () => {
         <div className='flex flex-col items-center gap-3'>
           <div className='w-20 h-20 bg-white rounded-full flex items-center justify-center overflow-hidden'>
             <Image 
-              src="/images/logo.png" 
+              src={CompanyLogo} 
               alt="Logo empresa" 
               width={80} 
               height={80}

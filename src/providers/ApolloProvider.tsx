@@ -12,9 +12,9 @@ import Cookies from 'js-cookie';
 import { ServerError } from '@apollo/client';
 
 const backUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
-console.log({backUrl})
+// console.log({backUrl})
 const back_httpLink = new HttpLink({
-  uri: 'http://localhost:4030/gql',
+  uri: backUrl,
 });
 
 export const ApolloClientProvider = ({

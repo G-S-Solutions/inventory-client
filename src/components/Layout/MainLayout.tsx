@@ -34,12 +34,12 @@ const MainLayout = ({ children }: IProps) => {
         transform transition-transform duration-300 ease-in-out
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-        <Sidebar menus={user.menus!} />
+        <Sidebar companyName={user.company.name} menus={user.menus!} />
       </aside>
 
       {/* Main Content */}
       <div className='flex-1 flex flex-col w-full lg:w-[85%] overflow-hidden bg-gray-50 dark:bg-gray-900'>
-        <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+        <Header name={user.firstName + " " + user.lastName} onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
         <main className='flex-1 overflow-y-auto p-4 text-gray-900 dark:text-gray-100'>
           <Suspense fallback={<Loading />}>
             {children}

@@ -7,9 +7,10 @@ import { ContextMenu } from "@/types/user";
 
 interface IProps {
   menus: ContextMenu[];
+  companyName: string;
 }
 
-export const Sidebar = ({ menus }: IProps) => {
+export const Sidebar = ({ menus, companyName }: IProps) => {
   const [openDropdowns, setOpenDropdowns] = useState<string[]>([]);
 
   const toggleDropdown = (menuId: string) => {
@@ -94,7 +95,7 @@ export const Sidebar = ({ menus }: IProps) => {
               className="object-contain"
             />
           </div>
-          <h2 className='text-xl font-bold text-center text-gray-100 dark:text-gray-200'>Wcv Company</h2>
+          <h2 className='text-xl font-bold text-center text-gray-100 dark:text-gray-200'>{companyName}</h2>
         </div>
       </div>
 

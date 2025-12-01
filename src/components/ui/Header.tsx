@@ -7,14 +7,14 @@ import { useAuth } from '@/context/AuthContext';
 
 interface HeaderProps {
   onMenuClick: () => void;
+  name: string;
 }
 
-export const Header = ({ onMenuClick }: HeaderProps) => {
+export const Header = ({ onMenuClick, name: userName }: HeaderProps) => {
   const { user, logout } = useAuth();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   // console.log({user})
-  const userName = "Admin User";
 
   const handleLogout = () => {
     Cookies.remove('token');

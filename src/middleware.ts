@@ -7,14 +7,13 @@ export async function middleware(request: NextRequest) {
 
   const isLoginPage = request.nextUrl.pathname.startsWith('/login');
   const is404Page = request.nextUrl.pathname.startsWith('/404');
-
   if (!isLoginPage && !is404Page) {
     if (!token) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
 
     const { data } = await isLoged(token || '');
-
+    // console.log({data})
     if (!data) {
       request.cookies.delete('token');
       return NextResponse.redirect(new URL('/login', request.url));

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ApolloClientProvider } from "@/providers/ApolloProvider";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,44 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  const theme = localStorage.getItem('theme');
-                  const html = document.documentElement;
-                  
-                  if (theme === 'dark') {
-                    html.classList.add('dark');
-                    html.classList.remove('light');
-                  } else if (theme === 'light') {
-                    html.classList.add('light');
-                    html.classList.remove('dark');
-                  } else {
-                    // Si no hay preferencia guardada, usar la del sistema
-                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    if (prefersDark) {
-                      html.classList.add('dark');
-                    } else {
-                      html.classList.add('light');
-                    }
-                  }
-                } catch (e) {
-                  // Fallback: agregar light por defecto
-                  document.documentElement.classList.add('light');
-                }
-              })();
-            `,
-          }}
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ApolloClientProvider>
-        {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ApolloClientProvider>
       </body>
     </html>

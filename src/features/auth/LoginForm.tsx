@@ -1,10 +1,10 @@
 'use client';
 import { useMutation } from '@apollo/client/react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import Cookies from 'js-cookie';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { AUTH_LOGIN } from './gql/auth.gql';
+import { useAuth } from '@/context/AuthContext';
 
 const loginSchema = Yup.object({
   email: Yup.string().required('El campo es obligatorio'),
@@ -13,6 +13,7 @@ const loginSchema = Yup.object({
 
 export const LoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const [authLogin] = useMutation<{ authLogin: { token: string } }>(AUTH_LOGIN);
 
   return (
@@ -25,11 +26,10 @@ export const LoginForm = () => {
           const response = await authLogin({
             variables: { loginInput: values },
           });
-
+          console.log(response)
           if (response?.data) {
             const { token } = response.data.authLogin;
-            Cookies.set('token', token);
-            window.location.href = '/dashboard';
+            login(token);
           }
         } catch (error) {
           console.error('Login error:', error);
@@ -42,49 +42,66 @@ export const LoginForm = () => {
         <div className='space-y-2'>
           <label
             htmlFor='email'
-            className='block text-sm font-medium text-gray-700'
+            className='block text-sm font-medium text-gray-700 dark:text-gray-300'
           >
-            Usuario<span className='text-red-500 ml-1'>*</span>
+            Usuario<span className='text-red-500 dark:text-red-400 ml-1'>*</span>
           </label>
           <Field
             id='email'
             name='email'
             type='text'
             placeholder='example@mail.com'
-            className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200 outline-none'
+            className='w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg 
+                     bg-white dark:bg-gray-800 
+                     text-gray-900 dark:text-gray-100
+                     placeholder-gray-400 dark:placeholder-gray-500
+                     focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 
+                     focus:border-transparent 
+                     transition duration-200 outline-none'
           />
           <ErrorMessage
             name='email'
             component='p'
-            className='text-red-500 text-sm mt-1'
+            className='text-red-500 dark:text-red-400 text-sm mt-1'
           />
         </div>
 
         <div className='space-y-2'>
           <label
             htmlFor='password'
-            className='block text-sm font-medium text-gray-700'
+            className='block text-sm font-medium text-gray-700 dark:text-gray-300'
           >
-            Contraseña<span className='text-red-500 ml-1'>*</span>
+            Contraseña<span className='text-red-500 dark:text-red-400 ml-1'>*</span>
           </label>
           <Field
             id='password'
             name='password'
             type='password'
             placeholder='••••••••'
-            className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200 outline-none'
+            className='w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg 
+                     bg-white dark:bg-gray-800 
+                     text-gray-900 dark:text-gray-100
+                     placeholder-gray-400 dark:placeholder-gray-500
+                     focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 
+                     focus:border-transparent 
+                     transition duration-200 outline-none'
           />
           <ErrorMessage
             name='password'
             component='p'
-            className='text-red-500 text-sm mt-1'
+            className='text-red-500 dark:text-red-400 text-sm mt-1'
           />
         </div>
 
         <button
           type='submit'
           disabled={loading}
-          className='w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg hover:cursor-pointer'
+          className='w-full bg-indigo-600 hover:bg-indigo-700 
+                   dark:bg-indigo-500 dark:hover:bg-indigo-600 
+                   text-white font-semibold py-3 px-4 rounded-lg 
+                   transition duration-200 
+                   disabled:opacity-50 disabled:cursor-not-allowed 
+                   shadow-md hover:shadow-lg hover:cursor-pointer'
         >
           {loading ? (
             <span className='flex items-center justify-center gap-2'>

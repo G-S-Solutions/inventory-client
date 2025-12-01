@@ -1,24 +1,24 @@
 'use client';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useDarkMode } from '@/hooks/useDarkMode';
+import { useAuth } from '@/context/AuthContext';
 
 interface HeaderProps {
   onMenuClick: () => void;
 }
 
 export const Header = ({ onMenuClick }: HeaderProps) => {
-  const router = useRouter();
+  const { user, logout } = useAuth();
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  
+  // console.log({user})
   const userName = "Admin User";
 
   const handleLogout = () => {
     Cookies.remove('token');
-    router.push('/login');
+    logout()
   };
 
   return (

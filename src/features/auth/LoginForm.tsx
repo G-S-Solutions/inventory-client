@@ -26,7 +26,7 @@ export const LoginForm = () => {
           const response = await authLogin({
             variables: { loginInput: values },
           });
-          console.log(response)
+          // console.log(response)
           if (response?.data) {
             const { token } = response.data.authLogin;
             login(token);

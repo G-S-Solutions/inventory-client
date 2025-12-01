@@ -1,8 +1,9 @@
 'use client';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useContext, useState } from 'react';
 import { Sidebar } from '../ui/sidebar/Sidebar';
 import { Header } from '../ui/Header';
 import { Footer } from '../ui/Footer';
+import { useAuth } from '@/context/AuthContext';
 
 interface IProps {
   children: ReactNode;
@@ -10,6 +11,8 @@ interface IProps {
 
 const MainLayout = ({ children }: IProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const {user} = useAuth();
+  console.log(user)
 
   return (
     <div className='flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900'>

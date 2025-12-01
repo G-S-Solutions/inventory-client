@@ -3,12 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import CompanyLogo from '@/assets/images/gs_logo.jpeg'
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export const Sidebar = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const router = useRouter();
 
   const toggleDropdown = (menu: string) => {
     setOpenDropdown(openDropdown === menu ? null : menu);
+  };
+
+  const handleLogout = () => {
+    Cookies.remove('token');
+    router.push('/login');
   };
 
   return (

@@ -12,7 +12,7 @@ const MainLayout = ({ children }: IProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className='flex h-screen overflow-hidden'>
+    <div className='flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900'>
       {/* Overlay para mobile */}
       {sidebarOpen && (
         <div 
@@ -32,9 +32,9 @@ const MainLayout = ({ children }: IProps) => {
       </aside>
 
       {/* Main Content */}
-      <div className='flex-1 flex flex-col w-full lg:w-[85%] overflow-hidden'>
+      <div className='flex-1 flex flex-col w-full lg:w-[85%] overflow-hidden bg-gray-50 dark:bg-gray-900'>
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
-        <main className='flex-1 overflow-y-auto p-4'>
+        <main className='flex-1 overflow-y-auto p-4 text-gray-900 dark:text-gray-100'>
           {children}
         </main>
         <Footer />

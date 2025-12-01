@@ -1,9 +1,11 @@
 'use client';
-import { ReactNode, useContext, useState } from 'react';
+import { ReactNode, Suspense, useContext, useState } from 'react';
 import { Sidebar } from '../ui/sidebar/Sidebar';
 import { Header } from '../ui/Header';
 import { Footer } from '../ui/Footer';
 import { useAuth } from '@/context/AuthContext';
+import Loading from '@/app/(project)/loading';
+import { MainLoader } from '../loader/MainLoader';
 
 interface IProps {
   children: ReactNode;
@@ -12,7 +14,8 @@ interface IProps {
 const MainLayout = ({ children }: IProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const {user} = useAuth();
-  console.log(user)
+  // console.log(user)
+  if(!user) return <MainLoader />
 
   return (
     <div className='flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-900'>
@@ -38,7 +41,9 @@ const MainLayout = ({ children }: IProps) => {
       <div className='flex-1 flex flex-col w-full lg:w-[85%] overflow-hidden bg-gray-50 dark:bg-gray-900'>
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
         <main className='flex-1 overflow-y-auto p-4 text-gray-900 dark:text-gray-100'>
-          {children}
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
         </main>
         <Footer />
       </div>

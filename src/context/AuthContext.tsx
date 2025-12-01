@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       fetchPolicy: 'no-cache',
     });
 
-    console.log(user)
+    // console.log(user)
 
   useEffect(() => {
     // Cargar usuario desde el token al montar
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           }
           // setUser(response.data.authValidateToken as ContextUser);
         } catch (error) {
-          console.error('Error fetching user info:', error);
+          console.log('Error fetching user info:', error);
           logout();
         } finally {
           setLoading(false);
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     Cookies.remove('token');
     setUser(null);
-    router.push('/login');
+    window.location.href = '/login';
   };
 
   const updateUser = (updatedUser: ContextUser) => {

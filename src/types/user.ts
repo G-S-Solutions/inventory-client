@@ -5,12 +5,12 @@ export interface Iloged {
   };
 }
 
-interface ContextCompany {
+export interface ContextCompany {
   id: string;
   name: string;
 }
 
-interface ContextMenu {
+export interface ContextMenu {
   id: string;
   name: string;
   code: string;
@@ -23,7 +23,7 @@ interface ContextMenu {
   subMenu?: ContextMenu[];
 }
 
-interface ContextRole {
+export interface ContextRole {
   id: string;
   name: string;
   slug: string;
